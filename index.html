@@ -1,19 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-	    <meta charset="utf-8">
-	    <title>Whiteboard PoC!</title>
-	    <link rel="stylesheet" type="text/css" href="css/whiteboard.css" />
+    <meta charset="utf-8">
+    <title>Whiteboard PoC!</title>
+    <link rel="stylesheet" type="text/css" href="css/whiteboard.css" />
+		<link rel="stylesheet" href="lib/codemirror/lib/codemirror.css" />
+    <!-- FUN! -->
+    <link rel="stylesheet" href="lib/codemirror/theme/neat.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/elegant.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/erlang-dark.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/night.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/monokai.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/cobalt.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/eclipse.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/rubyblue.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/lesser-dark.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/xq-dark.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/ambiance.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/blackboard.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/vibrant-ink.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/solarized.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/twilight.css">
+
+    <style type="text/css">
+      .CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}
+      .activeline {background: rgb(65, 75, 87) !important;}
+    </style>
 	</head>
 
 	<body>
-	    <h1>Whiteboard PoC</h1>
-	    <div id="block">
-	    </div>
+    <h1>Whiteboard PoC</h1>
+    <div id="whiteboard"></div>
+		<p>Select a theme: <select onchange="selectTheme()" id=select>
+		    <option>default</option>
+		    <option selected>ambiance</option>
+		    <option>blackboard</option>
+		    <option>cobalt</option>
+		    <option>eclipse</option>
+		    <option>elegant</option>
+		    <option>erlang-dark</option>
+		    <option>lesser-dark</option>
+		    <option>monokai</option>
+		    <option>neat</option>
+		    <option>night</option>
+		    <option>rubyblue</option>
+		    <option>solarized dark</option>
+		    <option>solarized light</option>
+		    <option>twilight</option>
+		    <option>vibrant-ink</option>
+		    <option>xq-dark</option>
+			</select>
+		</p>
 
-		<!--<script type="text/javascript" src="/socket.io/socket.io.js"></script>-->
+    <!-- Scripts -->
 		<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 		<script src="http://code.jquery.com/jquery-migrate-1.1.0.min.js"></script>
-		<!--<script type="text/javascript" src="js/whiteboard_client.js"></script>-->
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+		<script src="lib/codemirror/lib/codemirror.js"></script>
+		<script src="lib/codemirror/mode/javascript/javascript.js"></script>
+		<script type="text/javascript" src="js/codemirror.js"></script>
+
+		<script type="text/javascript" src="js/client.js"></script>
 	</body>
 </html>
