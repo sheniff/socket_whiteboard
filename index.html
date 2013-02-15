@@ -30,27 +30,32 @@
 
 	<body>
     <h1>Whiteboard PoC</h1>
-    <div id="whiteboard"></div>
-		<p>Select a theme: <select onchange="selectTheme()" id=select>
-		    <option>default</option>
-		    <option selected>ambiance</option>
-		    <option>blackboard</option>
-		    <option>cobalt</option>
-		    <option>eclipse</option>
-		    <option>elegant</option>
-		    <option>erlang-dark</option>
-		    <option>lesser-dark</option>
-		    <option>monokai</option>
-		    <option>neat</option>
-		    <option>night</option>
-		    <option>rubyblue</option>
-		    <option>solarized dark</option>
-		    <option>solarized light</option>
-		    <option>twilight</option>
-		    <option>vibrant-ink</option>
-		    <option>xq-dark</option>
-			</select>
-		</p>
+    <div class="own_wb">
+      <div id="whiteboard"></div>
+  		<p>Select a theme: <select onchange="selectMyTheme()" id="themeSelector">
+  		    <option>default</option>
+  		    <option selected>ambiance</option>
+  		    <option>blackboard</option>
+  		    <option>cobalt</option>
+  		    <option>eclipse</option>
+  		    <option>elegant</option>
+  		    <option>erlang-dark</option>
+  		    <option>lesser-dark</option>
+  		    <option>monokai</option>
+  		    <option>neat</option>
+  		    <option>night</option>
+  		    <option>rubyblue</option>
+  		    <option>solarized dark</option>
+  		    <option>solarized light</option>
+  		    <option>twilight</option>
+  		    <option>vibrant-ink</option>
+  		    <option>xq-dark</option>
+  			</select>
+  		</p>
+      <div id="log"></div>
+    </div>
+
+    <div id="friends_wb"></div>
 
     <!-- Scripts -->
 		<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>

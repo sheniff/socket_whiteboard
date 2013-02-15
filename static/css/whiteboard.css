@@ -1,6 +1,6 @@
 body {
 	padding: 1em;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 h1 {
 	font-size: 50px;
@@ -26,7 +26,7 @@ ul.block {
     height: 300px;
     overflow: auto;
 }
-	
+
 	#chat_windows {
 		overflow: hidden;
 		float: left;
@@ -36,7 +36,7 @@ ul.block {
 	#connection_list {
 		width: 100px;
 	}
-	
+
 	#connection_list li {
 		color: #999;
 	}
