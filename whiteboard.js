@@ -35,28 +35,38 @@ function clean_message(message){
 io.sockets.on('connection', function(socket){
 	socket.emit('server_messages', 'Connecting to chat...');
 
+	var userId = socket.id;
+
 	socket.on('join', function(name){
-		name = clean_message(""+name);
+		name = clean_message(''+name);
 
 		socket.set('user', name);
 		socket.emit('joined', {
 			message: 'Connected as '+name
 		});
-		socket.broadcast.emit('new_connection', name);
+
+		socket.broadcast.emit('new_connection', {name: name, id: userId});
 	});
 
 	socket.on('disconnect', function(){
 		socket.get('user', function(err, name){
-			socket.broadcast.emit('server_messages', {
-				message: name+" has gone..."
-			});
+			socket.broadcast.emit('user_disconnected', {name: name, id: userId});
 		});
 	});
 
 	socket.on('board_change', function(data){
 		socket.get('user', function(err, name){
-			socket.broadcast.emit('board_update', {sender: name, changeObj: data});
+			socket.broadcast.emit('board_update', {sender: {name: name, id: userId}, changeObj: data});
 		});
+	});
+
+	socket.on('reveal_to', function(socketId){
+		var askingSocket = io.sockets.sockets[socketId];
+		if(askingSocket){
+			socket.get('user', function(err, name){
+				askingSocket.emit('revealed_user', {name: name, id: userId});
+			});
+		}
 	});
 });
 
