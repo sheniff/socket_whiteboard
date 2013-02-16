@@ -1,7 +1,7 @@
 (function(){
 	//Vars
-	// var server = io.connect('http://warm-earth-1719.herokuapp.com'),
-	var server = io.connect('http://localhost:7777'),
+	var server = io.connect('http://warm-earth-1719.herokuapp.com'),
+	// var server = io.connect('http://localhost:7777'),
 		// ToDo: Stupid Random User to be changed for something more serious xD
 		user = Math.round(Math.random()*10000),
 		foes = {};
