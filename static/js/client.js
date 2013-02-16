@@ -37,7 +37,7 @@
 		console.log('Server: ' + data.message);
 	});
 
-	server.on('revealed', function(user){
+	server.on('revealed_user', function(user){
 		console.log("Revealed user:", user);
 		createScreen(user);
 	});
@@ -45,10 +45,11 @@
 	// Setting up sender form
 	$(document).ready(function($) {
 		var myEditor = CodeHeroWhiteBoard.create($('#whiteboard').get(0)),
-				setMyTheme = function(){
-					CodeHeroWhiteBoard.setTheme(myEditor, $('selector#themeSelector').val());
-				},
 				$screens = $('#friends_wb');
+
+		window.selectMyTheme = function(){
+			CodeHeroWhiteBoard.selectTheme(myEditor, $('selector#themeSelector').val());
+		};
 
 		createScreen = function(user){
 			var id = 'screen_'+user.id+'_'+user.name;

@@ -5,8 +5,7 @@ var express = require('express'),
 		http = require('http'),
 		server = http.createServer(app),
 		io = require('socket.io').listen(server),
-		port = process.env.PORT || 7777,
-		sockets = [];
+		port = process.env.PORT || 7777;
 
 function clean_message(message){
 	var i,
@@ -36,7 +35,7 @@ function clean_message(message){
 io.sockets.on('connection', function(socket){
 	socket.emit('server_messages', 'Connecting to chat...');
 
-	var userId = sockets.push(socket);
+	var userId = socket.id;
 
 	socket.on('join', function(name){
 		name = clean_message(''+name);
@@ -63,10 +62,11 @@ io.sockets.on('connection', function(socket){
 
 	socket.on('reveal_to', function(socketId){
 		var askingSocket = io.sockets.sockets[socketId];
-		if(askingSocket)
+		if(askingSocket){
 			socket.get('user', function(err, name){
 				askingSocket.emit('revealed_user', {name: name, id: userId});
 			});
+		}
 	});
 });
 

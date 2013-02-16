@@ -31,8 +31,8 @@ var CodeHeroWhiteBoard = (function(){
 		},
 
 		selectTheme: function(editor, theme) {
-			if(theme == 'ambiance') enableLineHl(editor);
-			else disableLineHl(editor);
+			if(theme == 'ambiance') this.enableLineHl(editor);
+			else this.disableLineHl(editor);
 
 			editor.setOption('theme', theme);
 		},
