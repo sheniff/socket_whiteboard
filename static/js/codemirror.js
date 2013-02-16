@@ -1,76 +1,67 @@
-// Editor instance
-var editor = CodeMirror(document.getElementById('whiteboard'), {
-	tabSize: 2,
-	lineNumbers: true,
-	theme: 'ambiance'
-});
+// Editor Class
 
-// Line highlighting
-var hlLine = editor.addLineClass(0, 'background', 'activeline');
-enableLineHl();
+var CodeHeroWhiteBoard = (function(){
+	// Private
+	var options = {
+				tabSize: 2,
+				lineNumbers: true,
+				theme: 'ambiance'
+			};
 
-function enableLineHl(){
-	editor.addLineClass(hlLine, 'background', 'activeline');
-	editor.on('cursorActivity', function() {
-	  var cur = editor.getLineHandle(editor.getCursor().line);
-	  if (cur != hlLine) {
-	    editor.removeLineClass(hlLine, 'background', 'activeline');
-	    hlLine = editor.addLineClass(cur, 'background', 'activeline');
-	  }
-	});
-};
+	return {
+		// Public methods
+		create: function(elem, extra_options){
+			extra_options = extra_options || {};
+			return CodeMirror(elem, $.extend(options, extra_options));
+		},
 
-function disableLineHl(){
-	editor.removeLineClass(hlLine, 'background', 'activeline');
-	editor.off('cursorActivity');
-};
+		enableLineHl: function(editor){
+			editor.off('cursorActivity').on('cursorActivity', function() {
+			  var cur = editor.getLineHandle(editor.getCursor().line);
+			  if (cur != editor.hlLine) {
+			    editor.removeLineClass(editor.hlLine, 'background', 'activeline');
+			    editor.hlLine = editor.addLineClass(cur, 'background', 'activeline');
+			  }
+			});
+		},
 
-// Changing theme
-function selectTheme() {
-	var input = document.getElementById('select'),
-			theme = input.options[input.selectedIndex].innerHTML;
+		disableLineHl: function(editor){
+			editor.removeLineClass(editor.hlLine, 'background', 'activeline');
+			editor.off('cursorActivity');
+		},
 
-	if(theme == 'ambiance') enableLineHl();
-	else disableLineHl();
+		selectTheme: function(editor, theme) {
+			if(theme == 'ambiance') this.enableLineHl(editor);
+			else this.disableLineHl(editor);
 
-	editor.setOption('theme', theme);
-};
+			editor.setOption('theme', theme);
+		},
 
-function updateEditor(status) {
-	switch(status.origin){
-		case 'input':
-		case 'paste':
-		case 'undo':
-		case 'redo':
-			if(status.text.length == 1)
-				editor.replaceRange(status.text[0], status.from, status.to);
-			else {
-				var str = '', i;
-				for(i = 0; i < status.text.length; i++){
-					if(i > 0) str += '\n';
-					str += status.text[i];
-				}
-				editor.replaceRange(str, status.from, status.to);
-			}
-		break;
+		update: function(editor, status) {
+			switch(status.origin){
+				case 'input':
+				case 'paste':
+				case 'undo':
+				case 'redo':
+					if(status.text.length == 1)
+						editor.replaceRange(status.text[0], status.from, status.to);
+					else {
+						var str = '', i;
+						for(i = 0; i < status.text.length; i++){
+							if(i > 0) str += '\n';
+							str += status.text[i];
+						}
+						editor.replaceRange(str, status.from, status.to);
+					}
+				break;
 
-		case 'delete':
-			editor.replaceRange('', status.from, status.to);
-		break;
-	}
+				case 'delete':
+					editor.replaceRange('', status.from, status.to);
+				break;
+			};
 
-	if(status.next)
-		updateEditor(status.next);
-};
-
-(function(){
-	var choice = document.location.search && decodeURIComponent(document.location.search.slice(1)),
-			input = document.getElementById('select');
-
-	if (choice) {
-		input.value = choice;
-		if(choice == 'ambiance') enableLineHl();
-		else disableLineHl();
-		editor.setOption('theme', choice);
+			if(status.next)
+				this.update(editor, status.next);
+		}
 	}
 })();
